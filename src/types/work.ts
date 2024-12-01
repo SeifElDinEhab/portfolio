@@ -3,4 +3,5 @@ export interface WorkItem {
   title: string;
   imageUrl: string;
   backgroundColor: string;
+  padding: string;
 }

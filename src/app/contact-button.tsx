@@ -1,35 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface ContactButtonProps {
-  show: boolean;
+  workSectionRef: React.RefObject<HTMLElement>;
 }
 
-export const ContactButton: React.FC<ContactButtonProps> = ({ show }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [shouldRender, setShouldRender] = useState(false);
+export const ContactButton: React.FC<ContactButtonProps> = ({
+  workSectionRef,
+}) => {
+  const { scrollYProgress } = useScroll({
+    target: workSectionRef,
+    offset: ["start end", "end start"],
+  });
 
-  useEffect(() => {
-    if (show) {
-      setShouldRender(true);
-      // Small delay to ensure the enter animation plays
-      setTimeout(() => setIsVisible(true), 10);
-    } else {
-      setIsVisible(false);
-      // Wait for the exit animation to complete before removing from DOM
-      setTimeout(() => setShouldRender(false), 500);
-    }
-  }, [show]);
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
-  if (!shouldRender) return null;
+  const y = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [20, 0, 0, 20]);
+  console.log(y);
 
   return (
-    <div
-      className={`contact-button-container ${
-        isVisible ? "contact-button-enter" : "contact-button-exit"
-      } w-fit py-4 px-6 bg-[#3a3a3a] text-white flex items-center gap-4 rounded-xl z-50 overflow-hidden`}
+    <motion.div
+      style={{ opacity, y, x: "-50%" }}
+      className="contact-button-container fixed bottom-8 left-1/2 w-fit py-5 px-10 bg-[#3a3a3a] text-white flex items-center gap-6 rounded-2xl z-50 overflow-hidden"
     >
       <svg
-        className="absolute w-full inset-0 pointer-events-none"
+        className="absolute w-full inset-0 pointer-events-none opacity-80"
         viewBox="0 0 512 512"
         preserveAspectRatio="none"
       >
@@ -77,9 +72,9 @@ export const ContactButton: React.FC<ContactButtonProps> = ({ show }) => {
       <h4 className="font-instrument text-2xl drop-shadow">
         Like what you see?
       </h4>
-      <button className="smooth-button drop-shadow ml-auto rounded-md bg-white hover:bg-[#f1f1f1] text-[#3a3a3a] font-semibold text-sm px-4 py-2 tracking-tighter transition-all">
+      <button className="btn-shadow drop-shadow ml-auto rounded-md bg-white hover:bg-[#f1f1f1] text-[#3a3a3a] font-semibold text-sm px-4 py-2 tracking-tighter transition-all duration-300 ease-in-out hover:scale-105">
         Get in touch
       </button>
-    </div>
+    </motion.div>
   );
 };

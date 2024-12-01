@@ -23,43 +23,9 @@ body {
     0px 0px 0px 1.5px #757575;
 }
 
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 40px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-@keyframes slideOutDown {
-  from {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, 40px);
-  }
-}
-
 .contact-button-container {
-  position: fixed;
-  bottom: 1rem;
-  left: 50%;
   box-shadow: inset 0px 0px 0px 1px #757575, 0px 0px 0px 1px #3a3a3a,
     0px 35px 10px 0px rgba(0, 0, 0, 0), 0px 22px 9px 0px rgba(0, 0, 0, 0.05),
     0px 6px 6px 0px rgba(0, 0, 0, 0.12), 0px 1px 3px 0px rgba(0, 0, 0, 0.16);
-  transform: translateX(-50%);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.contact-button-enter {
-  animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.contact-button-exit {
-  animation: slideOutDown 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

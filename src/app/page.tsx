@@ -90,15 +90,7 @@ export default function Home() {
             @Seif
           </Link>
         </div>
-        <div className="mt-6">
-          Image
-          <Link
-            href="#work"
-            className="bg-white border rounded-full text-xs px-5 py-2 beautiful-shadow"
-          >
-            <span className="drop-shadow font-medium">View Work</span>
-          </Link>
-        </div>
+
         <div className="absolute w-52 opacity-40 left-10 -bottom-36 -rotate-12">
           <Image
             src="/vscode-logo.png"
