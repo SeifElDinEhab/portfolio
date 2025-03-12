@@ -1,137 +1,245 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { FaXTwitter } from "react-icons/fa6";
-import { CiMail } from "react-icons/ci";
-import { Work } from "./work";
-import { ContactButton } from "./contact-button";
+import { useState, useEffect } from "react";
+import { motion, useScroll } from "motion/react";
+
+import { ProjectsSection } from "../components/projects-section";
+import { AtSignIcon } from "@/components/icons/at-icon";
+import { useRef } from "react";
+import { TwitterIcon } from "@/components/icons/twitter-icon";
+import { Tooltip } from "@/components/tooltip";
+import { Copy, CopyCheck, ExternalLink } from "lucide-react";
+import { BlurredGradientEffect } from "@/components/BlurredGradientEffect";
 
 export default function Home() {
-  return (
-    <main className="font-inter relative">
-      <Image
-        loading="eager"
-        src="/bg-clouds.png"
-        alt="sky with clouds"
-        width={3500}
-        height={2500}
-        className="w-full absolute z-0 opacity-10"
-      />
+  const { scrollY } = useScroll();
+  const [isSticky, setIsSticky] = useState(false);
 
-      <div className="relative max-w-6xl mx-auto pt-40 flex flex-col items-center">
-        <div className="flex gap-3 text-5xl font-instrument">
-          <h1 className="drop-shadow">Hey there I am Seif</h1>
-          <div className="relative w-12 h-12">
+  const atIconRef = useRef<{
+    startAnimation: () => void;
+    stopAnimation: () => void;
+  }>(null);
+
+  const twitterIconRef = useRef<{
+    startAnimation: () => void;
+    stopAnimation: () => void;
+  }>(null);
+
+  const [tooltipContent, setTooltipContent] = useState("Copy");
+
+  const copyEmail = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    await navigator.clipboard.writeText("seifeldinelzeiny@gmail.com");
+    setTooltipContent("Copied");
+    setTimeout(() => setTooltipContent("Copy"), 1500);
+  };
+
+  const headlineVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      filter:
+        "blur(4px) drop-shadow(0 1px 2px rgb(0 0 0 / 0.15)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.08))",
+    },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      filter:
+        "blur(0px) drop-shadow(0 1px 2px rgb(0 0 0 / 0.15)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.08))",
+      transition: {
+        duration: 0.6,
+        delay: custom * 0.15,
+        ease: [0.215, 0.61, 0.355, 1.0],
+      },
+    }),
+  };
+
+  const fadeInUpVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: custom * 0.2 + 1.2,
+        ease: [0.215, 0.61, 0.355, 1.0],
+      },
+    }),
+  };
+
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      setIsSticky(latest > 200);
+    });
+  }, [scrollY]);
+
+  const navVariants = {
+    normal: {
+      backgroundColor: "rgba(100, 100, 100, 0)",
+      backdropFilter: "blur(0px)",
+      color: "rgba(91, 91, 91, 1)",
+      padding: "12px 24px",
+      boxShadow: "0 0 0 0 rgba(0, 0, 0, 0)",
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+    sticky: {
+      backgroundColor: "rgba(100, 100, 100, 0.8)",
+      color: "rgba(220, 220, 220, 1)",
+      backdropFilter: "blur(4px)",
+      padding: "12px 24px",
+      boxShadow:
+        "0px 35px 10px 0px rgba(0, 0, 0, 0),0px 22px 9px 0px rgba(0, 0, 0, 0.02), 0px 6px 6px 0px rgba(0, 0, 0, 0.04),0px 1px 3px 0px rgba(0, 0, 0, 0.08)",
+      transition: {
+        duration: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
+  // font-rethinkSans
+  return (
+    <main className="font-plusJakartaSans relative radial">
+      {/* <div className="fixed bottom-0 left-0 right-0 h-24 z-50 pointer-events-none">
+        <BlurredGradientEffect />
+      </div> */}
+
+      <div className="fixed top-0 left-0 right-0 h-16 z-50 pointer-events-none progressive-blur-top"></div>
+      <div className="fixed bottom-0 left-0 right-0 h-16 z-50 pointer-events-none progressive-blur-bottom"></div>
+      <div className="relative max-w-6xl mx-auto pt-32 flex flex-col items-center">
+        <h1 className="flex items-center gap-3 text-5xl text-neutral-700 font-instrument">
+          <motion.span
+            variants={headlineVariants}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+            className="waitest"
+          >
+            Hey
+          </motion.span>
+          <motion.span
+            variants={headlineVariants}
+            initial="hidden"
+            animate="visible"
+            custom={1}
+            className="waitest"
+          >
+            there
+          </motion.span>
+          <motion.span
+            variants={headlineVariants}
+            initial="hidden"
+            animate="visible"
+            custom={2}
+            className="waitest"
+          >
+            I'm
+          </motion.span>
+          <motion.div
+            variants={headlineVariants}
+            initial="hidden"
+            animate="visible"
+            custom={3}
+            className="relative w-12 h-12"
+          >
             <div className="absolute inset-0 border-2 border-white/15 rounded-lg"></div>
             <Image
               src="/my-face.jpg"
-              alt="Seif' face in black & white. He's looking at the camera with the sea behind him"
-              width={1000}
-              height={1000}
-              className="w-full h-full rounded-lg beautiful-shadow"
+              alt="Seif's face in black & white. He's looking at the camera with the sea behind him"
+              width={479}
+              height={479}
+              className="w-full h-full rounded-lg nice-shadow"
             />
-          </div>
-          <h1 className="drop-shadow">& I build websites</h1>
-          <div className="relative w-10 h-10 group">
-            <Image
-              src="/website-visual.svg"
-              alt="small website visual"
-              width={240}
-              height={240}
-              className="absolute left-2 bottom-2 group-hover:bottom-1 w-8 h-8 drop-shadow-xl rotate-3 group-hover:rotate-[0deg] transition-all duration-300 ease-in-out"
-            />
-            <Image
-              src="/website-visual.svg"
-              alt="small website visual"
-              width={240}
-              height={240}
-              className="absolute bottom-0 left-4 group-hover:left-3 w-8 h-8 drop-shadow-xl rotate-[9deg] group-hover:rotate-[6deg] transition-all duration-300 ease-in-out"
-            />
-            <Image
-              src="/website-visual.svg"
-              alt="small website visual"
-              width={240}
-              height={240}
-              className="absolute bottom-0 left-0 group-hover:left-1 w-8 h-8 drop-shadow-xl -rotate-12 group-hover:-rotate-[8deg] transition-all duration-300 ease-in-out"
-            />
-          </div>
-        </div>
-        <h3 className="text-lg font-medium text-[#5B5B5B] drop-shadow mt-8">
-          I do UI/UX as well as code & no-code development
-        </h3>
-        <div className="flex gap-5 mt-4 text-xs text-[#5B5B5B] font-medium">
-          <Link
-            className="flex gap-1 items-center drop-shadow"
-            href="https://x.com/SeifDesigns"
+          </motion.div>
+          <motion.span
+            variants={headlineVariants}
+            initial="hidden"
+            animate="visible"
+            custom={4}
+            className="waitest"
           >
-            <CiMail strokeWidth={1} className="text-base" />
-            seifeldinelzeiny@gmail.com
-          </Link>
-          <Link
-            className="flex gap-1 items-center drop-shadow"
-            href="https://x.com/SeifDesigns"
-            target="_blank"
-            rel="noopener noreferrer"
+            Seif
+          </motion.span>
+        </h1>
+        <motion.h2
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0}
+          className="text-base font-normal text-neutral-700 drop-shadow mt-8 max-w-lg text-center"
+        >
+          {/* Web developer with a passion for creating seamless web experiences
+          focused on Framer marketing sites, web applications, and interactive
+          components */}
+          I partner with founders to build high-impact marketing sites and
+          interactive web applications
+        </motion.h2>
+        <motion.nav
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate="visible"
+          custom={0.5}
+          className="sticky top-6 z-50 flex justify-center w-full"
+          aria-label="Contact links"
+        >
+          <motion.div
+            className="flex gap-5 text-xs font-medium rounded-full"
+            style={{ color: "inherit" }}
+            variants={navVariants}
+            animate={isSticky ? "sticky" : "normal"}
           >
-            <FaXTwitter size={"1.1em"} /> @SeifDesigns
-          </Link>
-          <Link
-            className="flex gap-1 items-center drop-shadow"
-            href="https://layers.to/seif"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/layers-logo.svg"
-              alt="layers.to logo"
-              width={100}
-              height={100}
-              className="w-4 h-4"
-            />
-            @Seif
-          </Link>
-        </div>
+            <Tooltip
+              icon={
+                tooltipContent === "Copied" ? (
+                  <CopyCheck size={12} />
+                ) : (
+                  <Copy size={12} />
+                )
+              }
+              content={tooltipContent}
+            >
+              <button
+                className="flex items-center gap-1 py-1 drop-shadow transition-none"
+                onClick={copyEmail}
+                onMouseEnter={() => atIconRef.current?.startAnimation()}
+                onMouseLeave={() => atIconRef.current?.stopAnimation()}
+              >
+                <AtSignIcon ref={atIconRef} size={16} />
+                <span>hi@seifelzeiny.com</span>
+              </button>
+            </Tooltip>
+            <Tooltip icon={<ExternalLink size={12} />} content="Visit">
+              <Link
+                className="flex gap-1 items-center py-1 drop-shadow transition-none"
+                href="https://x.com/SeifDesigns"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Follow me on X (formerly Twitter)"
+                onMouseEnter={() => twitterIconRef.current?.startAnimation()}
+                onMouseLeave={() => twitterIconRef.current?.stopAnimation()}
+              >
+                <TwitterIcon ref={twitterIconRef} size={16} />
+                <span>@SeifDesigns</span>
+              </Link>
+            </Tooltip>
+          </motion.div>
+        </motion.nav>
 
-        <div className="absolute w-52 opacity-40 left-10 -bottom-36 -rotate-12">
-          <Image
-            src="/vscode-logo.png"
-            alt="vs code logo"
-            width={100}
-            height={100}
-            className="absolute -top-4 -left-4 w-10 h-10"
-          />
-          <Image
-            src="/vscode-visual.svg"
-            alt="vs code visual"
-            width={100}
-            height={100}
-            className="h-full w-full"
-          />
-        </div>
-        <div className="absolute w-52 opacity-20 right-10 -bottom-32 rotate-12">
-          <Image
-            src="/figma-logo.webp"
-            alt="vs code logo"
-            width={100}
-            height={100}
-            className="absolute -top-6 -right-6 h-16 w-16"
-          />
-          <Image
-            src="/figma-visual.svg"
-            alt="vs code visual"
-            width={100}
-            height={100}
-            className="h-full w-full"
-          />
-          <Image
-            src="/cursor-icon.svg"
-            alt="vs code visual"
-            width={100}
-            height={100}
-            className="absolute -bottom-4 -right-4 h-6 w-6"
-          />
-        </div>
+        <motion.div
+          variants={fadeInUpVariants}
+          initial="hidden"
+          animate="visible"
+          custom={2}
+          className="w-full"
+        >
+          <ProjectsSection />
+        </motion.div>
       </div>
-      <Work />
     </main>
   );
 }

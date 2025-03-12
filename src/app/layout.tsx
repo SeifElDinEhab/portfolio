@@ -1,4 +1,9 @@
-import { Instrument_Serif, Inter } from "next/font/google";
+import {
+  Instrument_Serif,
+  Inter,
+  Plus_Jakarta_Sans,
+  Rethink_Sans,
+} from "next/font/google";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -15,13 +20,30 @@ const inter = Inter({
   fallback: ["sans-serif"],
 });
 
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plus-jakarta-sans",
+  fallback: ["sans-serif"],
+});
+
+const rethinkSans = Rethink_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-rethink-sans",
+  fallback: ["sans-serif"],
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${inter.variable} ${plusJakartaSans.variable} ${rethinkSans.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
