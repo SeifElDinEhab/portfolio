@@ -30,7 +30,7 @@ const content: ContentItem[] = [
   },
 ];
 
-// We duplicate the content to create a seamless loop
+// We duplicate the content to create a seamless loo
 const duplicatedContent = [...content, ...content];
 
 export function ProjectsTicker() {
