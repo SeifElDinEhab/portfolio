@@ -13,10 +13,8 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        instrument: ["var(--font-instrument-serif)"],
         inter: ["var(--font-inter)"],
-        plusJakartaSans: ["var(--font-plus-jakarta-sans)"],
-        rethinkSans: ["var(--font-rethink-sans)"],
+        geist: ["var(--font-geist)"],
       },
     },
   },

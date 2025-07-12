@@ -12,5 +12,4 @@ export interface Project {
   technologies: string[];
   longDescription: string;
   liveLink: string;
-  githubLink: string;
 }

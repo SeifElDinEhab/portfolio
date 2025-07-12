@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { projects } from "@/data/projects";
 import { ProjectCard } from "./project-card";
 import { ProjectModal } from "./project-modal";
+import { ProjectsTicker } from "./projects-slider";
 
 const sharedTransition = {
   duration: 0.7,
@@ -20,33 +21,36 @@ export const ProjectsSection = () => {
       : null;
 
   return (
-    <section className="py-24 max-w-[1400px] w-full mx-auto px-6 sm:px-8 md:px-12">
-      <div className="relative w-full">
-        {/* Project Modal */}
-        <AnimatePresence>
-          {selectedProject !== null && selectedProjectData && (
-            <ProjectModal
-              project={selectedProjectData}
-              onClose={() => setSelectedProject(null)}
-              sharedTransition={sharedTransition}
-            />
-          )}
-        </AnimatePresence>
+    <>
+      <ProjectsTicker />
+      <section className="py-16 max-w-3xl w-full mx-auto">
+        <div className="relative w-full">
+          {/* Project Modal */}
+          <AnimatePresence>
+            {selectedProject !== null && selectedProjectData && (
+              <ProjectModal
+                project={selectedProjectData}
+                onClose={() => setSelectedProject(null)}
+                sharedTransition={sharedTransition}
+              />
+            )}
+          </AnimatePresence>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 w-full">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={() => {
-                setSelectedProject(project.id);
-              }}
-              sharedTransition={sharedTransition}
-            />
-          ))}
+          {/* Project Grid */}
+          <div className="grid grid-cols-1 gap-8 md:gap-12 lg:gap-16 w-full">
+            {projects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onClick={() => {
+                  setSelectedProject(project.id);
+                }}
+                sharedTransition={sharedTransition}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { easeOut, motion } from "framer-motion";
+import {  motion } from "framer-motion";
 import Image from "next/image";
 import { Project } from "@/types/project";
 import {
@@ -50,22 +50,15 @@ export function ProjectCard({
       onClick={onClick}
       transition={sharedTransition}
     >
-      <div className="relative w-full p-12 overflow-hidden cursor-pointer mb-5 aspect-[1.333333/1] bg-white hover:bg-neutral-100 rounded-xl border border-black/10 transition-colors duration-200">
-        {/* Tech Icons */}
-        <motion.div
-          layoutId={`main-image-${project.id}`}
-          transition={sharedTransition}
-          className="relative w-full h-full rounded-lg overflow-hidden"
-        >
-          <Image
-            src={project.mainImage || "/placeholder.svg"}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="nice-shadow"
-            priority={project.id <= 2}
-          />
-        </motion.div>
+      <div className="relative w-full overflow-hidden cursor-pointer mb-5 bg-neutral-50 rounded-2xl transition-colors duration-200">
+        <Image
+          src={project.mainImage || "/placeholder.svg"}
+          alt={project.title}
+          width={1200}
+          height={800}
+          className="w-full h-auto nice-shadow"
+          priority={project.id <= 2}
+        />
       </div>
       <motion.div className="flex gap-1.5 mb-2">
         {project.technologies.slice(0, 3).map((tech, index) => {
@@ -81,7 +74,7 @@ export function ProjectCard({
               <motion.span
                 layoutId={`${tech}-${project.id}`}
                 transition={sharedTransition}
-                className="w-6 h-6 rounded-full bg-white/90 backdrop-blur-sm border border-neutral-200 flex items-center justify-center"
+                className="w-6 h-6 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center"
                 style={{ color: techInfo.color }}
               >
                 {techInfo.icon}
@@ -90,7 +83,7 @@ export function ProjectCard({
           ) : null;
         })}
         {project.technologies.length > 3 && (
-          <motion.div className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm border border-neutral-200 flex items-center justify-center text-xs font-medium">
+          <motion.div className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-xs font-medium">
             +{project.technologies.length - 3}
           </motion.div>
         )}

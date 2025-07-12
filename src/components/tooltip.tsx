@@ -17,7 +17,7 @@ export function Tooltip({
   const [isOpen, setIsOpen] = useState(false);
 
   const positionStyles = {
-    top: "bottom-full left-[50%] mb-1",
+    top: "bottom-full left-[50%]",
     bottom: "top-full left-[50%]",
     left: "right-full top-[50%]",
     right: "left-full top-[50%]",
@@ -28,8 +28,8 @@ export function Tooltip({
       opacity: 0,
       scale: 0.8,
       filter: "blur(4px)",
-      y: position === "top" ? 10 : position === "bottom" ? -10 : 0,
-      x: position === "left" ? 10 : position === "right" ? -10 : 0,
+      y: position === "top" ? 6 : position === "bottom" ? -6 : 0,
+      x: position === "left" ? 6 : position === "right" ? -6 : 0,
       ...(position === "top" || position === "bottom"
         ? { translateX: "-50%" }
         : {}),
@@ -58,8 +58,8 @@ export function Tooltip({
       opacity: 0,
       scale: 0.8,
       filter: "blur(4px)",
-      y: position === "top" ? 10 : position === "bottom" ? -10 : 0,
-      x: position === "left" ? 10 : position === "right" ? -10 : 0,
+      y: position === "top" ? 6 : position === "bottom" ? -6 : 0,
+      x: position === "left" ? 6 : position === "right" ? -6 : 0,
       ...(position === "top" || position === "bottom"
         ? { translateX: "-50%" }
         : {}),
@@ -85,7 +85,7 @@ export function Tooltip({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className={`absolute flex items-center z-50 bg-neutral-600 text-white h-6 text-[10px] px-2 py-1 rounded-md nice-shadow ${positionStyles[position]}`}
+            className={`absolute flex items-center z-50 bg-neutral-700 text-white h-6 text-[10px] px-2 py-1 rounded-md nice-shadow ${positionStyles[position]}`}
             initial="hidden"
             animate="visible"
             exit="exit"
