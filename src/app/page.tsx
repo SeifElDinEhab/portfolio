@@ -18,6 +18,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { FaTelegramPlane } from "react-icons/fa";
 
 import { Footer } from "@/components/footer";
+import { ServicesSection } from "@/components/services";
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -123,27 +124,11 @@ export default function Home() {
     <main className="font-geist tracking-[-0.04rem] relative radial">
       <div className="fixed top-0 left-0 right-0 h-16 z-50 pointer-events-none progressive-blur-top"></div>
       <div className="fixed bottom-0 left-0 right-0 h-16 z-50 pointer-events-none progressive-blur-bottom"></div>
-      <div className="relative max-w-xl mx-auto pt-16 md:pt-32">
+      <div className="relative max-w-xl mx-auto pt-16 py-8 md:pt-32">
         <div className="flex items-center justify-between mb-8">
           <div className="flex gap-2">
             {/* Logo */}
-            <div
-              className="size-12 bg-neutral-200 rounded-lg nice-shadow relative pt-0.5 overflow-hidden"
-              // onHoverStart={() => setIsLogoHovered(true)}
-              // onHoverEnd={() => setIsLogoHovered(false)}
-            >
-              {/* {logoImages.map((src, index) => (
-            <Image
-              src={src}
-              alt={`Seif Elzeiny Pixel Art Avatar ${index + 1}`}
-              width={1024}
-              height={1024}
-              className={`object-cover rounded-lg ${
-                index === currentImageIndex ? "block" : "hidden"
-              }`}
-              priority
-            />
-          ))} */}
+            <div className="size-12 bg-neutral-200 rounded-lg nice-shadow relative pt-0.5 overflow-hidden">
               <Image
                 src="/me.png"
                 alt="Seif Elzeiny Pixel Art Avatar"
@@ -213,54 +198,36 @@ export default function Home() {
               </Link>
 
               {/* View Services */}
-              <Link
+              {/* <Link
                 className="w-fit flex gap-1 items-center py-2 px-4 bg-neutral-200 hover:bg-neutral-300 transition-colors rounded-full"
                 href="https://t.me/seifelzeiny"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Chat with me on Telegram"
               >
-                {/* <Image
-                  src="/work-icon.png"
-                  alt="Work icon"
-                  width={16}
-                  height={16}
-                /> */}
                 <span className="text-neutral-700">View Services</span>
-              </Link>
+              </Link> */}
+              <div className="flex items-center">
+                {/* Email */}
+                <span className="text-neutral-400 flex items-center">
+                  Or <IoIosArrowRoundForward size={18} />
+                </span>
+                <Tooltip
+                  icon={
+                    tooltipContent === "Copied" ? (
+                      <CopyCheck size={12} />
+                    ) : (
+                      <Copy size={12} />
+                    )
+                  }
+                  content={tooltipContent}
+                >
+                  <button className="py-1" onClick={copyEmail}>
+                    <span className="text-neutral-700">hi@seifelzeiny.com</span>
+                  </button>
+                </Tooltip>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              {/* Email */}
-              <span className="text-neutral-400 flex items-center gap-1">
-                Or drop me an email <IoIosArrowRoundForward size={18} />
-              </span>
-              <Tooltip
-                icon={
-                  tooltipContent === "Copied" ? (
-                    <CopyCheck size={12} />
-                  ) : (
-                    <Copy size={12} />
-                  )
-                }
-                content={tooltipContent}
-              >
-                <button className="py-1" onClick={copyEmail}>
-                  <span className="text-neutral-700">hi@seifelzeiny.com</span>
-                </button>
-              </Tooltip>
-            </div>
-            {/* <Tooltip icon={<ExternalLink size={12} />} content="Visit">
-              <Link
-                className="flex gap-0.5 items-center py-1"
-                href="https://x.com/SeifDesigns"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Follow me on X (formerly Twitter)"
-              >
-                <FaXTwitter size={14} />
-                <span>@SeifDesigns</span>
-              </Link>
-            </Tooltip> */}
           </motion.div>
         </motion.div>
       </div>
@@ -274,6 +241,16 @@ export default function Home() {
         className="w-full"
       >
         <ProjectsSection />
+      </motion.div>
+      {/* Services Section */}
+      <motion.div
+        variants={fadeInUpVariants}
+        initial="hidden"
+        animate="visible"
+        custom={2.5}
+        className="w-full"
+      >
+        <ServicesSection />
       </motion.div>
 
       {/* CTA */}

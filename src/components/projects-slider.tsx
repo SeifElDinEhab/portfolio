@@ -1,8 +1,7 @@
-// components/InfiniteTicker.tsx
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 // Define the type for a single content item
 interface ContentItem {
@@ -10,11 +9,11 @@ interface ContentItem {
   src: string;
 }
 
-// Your portfolio content
+// Portfolio content
 const content: ContentItem[] = [
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1682687220247-9f786e34d472?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "/work/thumbnails/studioshot-hero.png",
   },
   {
     type: "video",
@@ -22,7 +21,7 @@ const content: ContentItem[] = [
   },
   {
     type: "image",
-    src: "https://images.unsplash.com/photo-1707343843344-011334a16538?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "/work/thumbnails/hire-inc-hero.png",
   },
   {
     type: "video",
@@ -30,62 +29,58 @@ const content: ContentItem[] = [
   },
 ];
 
-// We duplicate the content to create a seamless loo
-const duplicatedContent = [...content, ...content];
-
 export function ProjectsTicker() {
-  const tickerRef = useRef<HTMLDivElement>(null);
-  const baseX = useMotionValue(0); // Tracks the base horizontal position
-  const isDragging = useRef(false); // Ref to track drag state
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
 
-  // This function handles the continuous animation loop
-  useAnimationFrame((time, delta) => {
-    // If the user is dragging, we pause the automatic animation
-    if (isDragging.current || !tickerRef.current) return;
+  useEffect(() => {
+    const updateConstraints = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        const contentWidth = content.length * 592; // 400px width + 16px padding
+        const maxDrag = Math.min(0, containerWidth - contentWidth);
 
-    // We calculate a velocity-based movement factor for momentum
-    let moveBy = -0.1; // Base speed (pixels per frame)
+        setDragConstraints({
+          left: maxDrag,
+          right: 0,
+        });
+      }
+    };
 
-    if (baseX.getVelocity() !== 0) {
-      // Use velocity for momentum after a drag
-      moveBy = baseX.getVelocity() * (delta / 1000);
-    }
-
-    // Reset the position to create the infinite loop effect
-    if (baseX.get() < -tickerRef.current.offsetWidth / 2) {
-      baseX.set(0);
-    }
-
-    // Update the position
-    baseX.set(baseX.get() + moveBy);
-  });
+    updateConstraints();
+    window.addEventListener("resize", updateConstraints);
+    return () => window.removeEventListener("resize", updateConstraints);
+  }, []);
 
   return (
     <div
-      className="w-full overflow-hidden"
-      style={{
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-      }}
+      ref={containerRef}
+      className="w-full overflow-hidden cursor-grab active:cursor-grabbing px-8"
+      style={
+        {
+          // WebkitMaskImage:
+          //   "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+        }
+      }
     >
       <motion.div
-        ref={tickerRef}
-        className="flex"
-        style={{ x: baseX }} // Directly use the motion value
+        className="flex select-none"
+        style={{ width: "fit-content" }}
         drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.05}
-        onDragStart={() => (isDragging.current = true)} // Set drag state to true
-        onDragEnd={() => (isDragging.current = false)} // Set drag state to false
+        dragConstraints={dragConstraints}
+        dragElastic={0.01}
+        dragMomentum={true} // Enable momentum after dragging
+        whileDrag={{ cursor: "grabbing" }}
       >
-        {duplicatedContent.map((item, idx) => (
-          <div key={idx} className="w-[300px] shrink-0 p-2">
-            <div className="h-[200px] bg-neutral-800 rounded-lg overflow-hidden">
+        {content.map((item, idx) => (
+          <div key={idx} className="max-w-xl shrink-0 p-2">
+            <div className="h-[384px] bg-neutral-800 rounded-lg overflow-hidden">
               {item.type === "image" ? (
                 <img
-                  src={item.src}
-                  alt="Portfolio work"
+                  src={item.src || "/placeholder.svg"}
+                  alt={`Portfolio project ${idx + 1}`}
                   className="w-full h-full object-cover"
+                  draggable="false"
                 />
               ) : (
                 <video
