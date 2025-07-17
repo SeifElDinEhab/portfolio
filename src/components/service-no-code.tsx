@@ -98,19 +98,18 @@ export function NoCodeService() {
 
   return (
     <li
-      className="relative col-span-1 row-span-1 flex justify-center items-center p-10 bg-gray-100 rounded-2xl group"
+      className="relative col-span-1 row-span-1 flex flex-col bg-gray-100 rounded-2xl group"
       style={{
         cursor: `url("${customCursor}") 12 12, auto`,
       }}
     >
-      <div className="w-full h-full">
-        <div
-          className="bg-white rounded-lg w-full h-full group-hover:translate-y-0 translate-y-3 transition-transform duration-[400ms] ease-out"
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 60%, transparent)",
-          }}
-        >
+      <div
+        className="relative flex-1"
+        style={{
+          WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent)",
+        }}
+      >
+        <div className="absolute top-7 left-10 right-10 bg-white rounded-lg h-full group-hover:translate-y-0 translate-y-3 transition-transform duration-[400ms] ease-in-out">
           {items.map((item) => (
             <div
               key={item.id}
@@ -133,7 +132,7 @@ export function NoCodeService() {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-4 left-4">
+      <div className="flex-none p-4">
         <h3 className="font-medium">No-code</h3>
         <p className="text-neutral-500 leading-tight text-sm">
           For landing pages and marketing sites
