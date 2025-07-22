@@ -8,15 +8,16 @@ export function ProjectsVideo() {
   const [isClicked, setIsClicked] = useState(false);
   return (
     <motion.div
-      className={`relative z-50 w-full max-w-xl mx-auto aspect-[1.7777] bg-neutral-500 rounded-xl transition-transform duration-300 ease-out cursor-pointer overflow-hidden`}
-      initiol={{ scale: 1 }}
-      animate={{ scale: isClicked ? 1.5 : 1 }}
+      className={`z-50 w-full max-w-xl mx-auto aspect-[1.7777] bg-neutral-500 rounded-xl transition-transform duration-300 ease-out cursor-pointer overflow-hidden`}
+      initial={{ scale: 1, position: "relative" }}
+      animate={{
+        scale: isClicked ? 1.5 : 1,
+        position: "relative",
+      }}
       whileHover={{ scale: isClicked ? 1.5 : 0.98 }}
       transition={{
         duration: 0.3,
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
+        ease: "easeOut",
       }}
       onClick={() => setIsClicked(!isClicked)}
     >

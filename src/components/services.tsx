@@ -1,8 +1,6 @@
 import { NoCodeService } from "./service-no-code";
 import { CustomCodeService } from "./service-custom-code";
 import { ThreeDService } from "./service-3d";
-import { AnimationsService } from "./service-animations";
-import Image from "next/image";
 
 export function ServicesSection() {
   return (
@@ -14,7 +12,6 @@ export function ServicesSection() {
         <ul className="w-full aspect-3 grid grid-cols-3 grid-rows-1 gap-4">
           <NoCodeService />
           <CustomCodeService />
-          {/* <AnimationsService /> */}
           <ThreeDService />
         </ul>
       </div>

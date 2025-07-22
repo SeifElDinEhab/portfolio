@@ -1,6 +1,6 @@
 import { Project } from "@/types/project";
 
-export const role = "Framer Developer";
+export const role = "Front-end Developer";
 
 export const availabilityDate = {
   month: "August",
