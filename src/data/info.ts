@@ -1,5 +1,12 @@
 import { Project } from "@/types/project";
 
+export const role = "Framer Developer";
+
+export const availabilityDate = {
+  month: "August",
+  year: 2025,
+};
+
 export const projects: Project[] = [
   {
     id: 1,

@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // Simple confetti effect component with Framer Motion
@@ -95,30 +95,25 @@ export function CustomCodeService() {
   }, [isClicked, isFocused]);
 
   return (
-    <li className="relative col-span-1 row-span-1 flex flex-col bg-gray-100 rounded-2xl overflow-hidden group">
-      <div
-        className="relative flex-1"
-        style={{
-          WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent)",
-        }}
-      >
-        <motion.div className="absolute top-7 left-10 bg-white rounded-lg p-4 pr-0 pb-8 font-mono text-[0.675rem] group-hover:translate-y-0 translate-y-3 transition-transform duration-[400ms] ease-in-out">
-          <div className="flex items-center mb-3">
+    <li className="relative col-span-1 row-span-1 flex flex-col bg-neutral-100 rounded-2xl overflow-hidden group">
+      <div className="relative flex-1 service-mask">
+        <motion.div className="absolute top-7 left-7 w-full bg-white service-shadow rounded-lg p-4 pr-0 pb-16 font-mono text-[0.675rem] group-hover:translate-y-0 translate-y-3 transition-transform duration-[400ms] ease-in-out">
+          <div className="flex items-center mb-1">
             <div className="flex gap-1">
-              <div className="size-2 bg-red-400 rounded-full"></div>
-              <div className="size-2 bg-yellow-400 rounded-full"></div>
-              <div className="size-2 bg-green-400 rounded-full"></div>
+              <div className="size-1 bg-red-400 rounded-full"></div>
+              <div className="size-1 bg-yellow-400 rounded-full"></div>
+              <div className="size-1 bg-green-400 rounded-full"></div>
             </div>
             <span className="text-neutral-400 ml-10">new-website.js</span>
           </div>
-          <div className="text-neutral-600 space-y-1">
+          <div className="text-neutral-500 space-y-">
             <div>
               <span className="text-blue-600">import</span> Website{" "}
               <span className="text-blue-600">from</span>{" "}
               <span className="text-green-600">"@engineers/seif"</span>
-              <span className="text-gray-500">;</span>
+              <span className="text-neutral-500">;</span>
             </div>
-            <div className="mt-4">
+            <div>
               {/* 🚀 Let's launch your new site! */}
               <span className="text-blue-600">const</span> yourSite ={" "}
               <span className="text-blue-600">new</span> Website(&#123; owner:{" "}
@@ -127,9 +122,9 @@ export function CustomCodeService() {
               <span className="text-green-600">"Fast"</span>,{" "}
               <span className="text-green-600">"Beautiful"</span>,{" "}
               <span className="text-green-600">"Interactive"</span>] &#125;)
-              <span className="text-gray-500">;</span>
+              <span className="text-neutral-500">;</span>
             </div>
-            <div className="mt-4">
+            <div>
               {/* Interactive false/true replacement */}
               yourSite.launch ={" "}
               <AnimatePresence mode="wait">
@@ -138,7 +133,7 @@ export function CustomCodeService() {
                     key="false"
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    className="bg-neutral-300 text-red-400 rounded-sm py-0.5 px-1 cursor-pointer hover:bg-neutral-400 hover:shadow-sm transition-all duration-200 select-none inline-block"
+                    className="bg-red-100 text-red-400 rounded py-0.5 px-1 cursor-pointer hover:bg-red-100/70 hover:shadow-sm transition-all duration-200 select-none inline-block"
                     onClick={handleFalseClick}
                   >
                     false
@@ -202,12 +197,12 @@ export function CustomCodeService() {
         </motion.div>
       </div>
 
-      <div className="absolute top-0 right-0 bottom-10 w-16 bg-gradient-to-l from-gray-100 to-transparent" />
+      <div className="absolute top-0 right-0 bottom-10 w-16 bg-gradient-to-l from-neutral-100 to-transparent" />
 
       <div className="flex-none p-4">
         <h3 className="font-medium">Custom Code</h3>
         <p className="text-neutral-500 leading-tight text-sm">
-          For web applications and interactive sites
+          For web apps and interactive sites
         </p>
       </div>
       <Confetti active={isCompleted} />

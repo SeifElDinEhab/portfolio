@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import type { Project } from "@/types/project";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -115,7 +115,7 @@ export function ProjectModal({
               <motion.p
                 layoutId={`category-${project.id}`}
                 transition={sharedTransition}
-                className="text-sm text-gray-600 mb-1"
+                className="text-sm text-neutral-600 mb-1"
               >
                 {project.category}
               </motion.p>

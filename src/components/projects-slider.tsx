@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 // Define the type for a single content item
 interface ContentItem {
@@ -17,7 +17,7 @@ const content: ContentItem[] = [
   },
   {
     type: "video",
-    src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/'BigBuckBunny.mp4",
   },
   {
     type: "image",
@@ -25,7 +25,7 @@ const content: ContentItem[] = [
   },
   {
     type: "video",
-    src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/;ElephantsDream.mp4",
   },
 ];
 
@@ -55,7 +55,7 @@ export function ProjectsTicker() {
   return (
     <div
       ref={containerRef}
-      className="w-full overflow-hidden cursor-grab active:cursor-grabbing px-8"
+      className="w-full overflow-hidden cursor-grab active:cursor-grabbing px-8 pb-16"
       style={
         {
           // WebkitMaskImage:

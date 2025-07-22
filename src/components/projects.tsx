@@ -1,25 +1,6 @@
-"use client";
-
-import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
-import { projects } from "@/data/projects";
-import { ProjectCard } from "./project-card";
-import { ProjectModal } from "./project-modal";
 import { ProjectsTicker } from "./projects-slider";
 
-const sharedTransition = {
-  duration: 0.7,
-  ease: [0.32, 0.72, 0, 1],
-};
-
-export const ProjectsSection = () => {
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
-
-  const selectedProjectData =
-    selectedProject !== null
-      ? projects.find((p) => p.id === selectedProject)
-      : null;
-
+export const Projects = () => {
   return <ProjectsTicker />;
 };
 

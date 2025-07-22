@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type React from "react";
 import { useState } from "react";
 import type { JSX } from "react";
@@ -20,7 +21,7 @@ export function NoCodeService() {
         <div className="flex justify-between items-center p-4 hover:scale-95 transition-all ease-out duration-200">
           <div className="h-1 w-6 bg-neutral-200 rounded-sm"></div>
           <div className="flex gap-1 items-center">
-            <div className="h-2 w-6 bg-violet-400 rounded-full"></div>
+            <div className="h-2 w-6 bg-violet-200 rounded-full"></div>
           </div>
         </div>
       ),
@@ -29,7 +30,7 @@ export function NoCodeService() {
       id: "hero",
       component: (
         <div className="flex flex-col items-center gap-1 py-2 hover:scale-95 transition-all ease-out duration-200">
-          <div className="w-12 h-2 bg-neutral-300 rounded-full mb-1"></div>
+          <div className="w-12 h-2 bg-neutral-200 rounded-full mb-1"></div>
           <div className="w-24 h-1 bg-neutral-200 rounded-full"></div>
           <div className="w-16 h-1 bg-neutral-200 rounded-full"></div>
         </div>
@@ -39,7 +40,7 @@ export function NoCodeService() {
       id: "visual",
       component: (
         <div className="flex justify-center items-center py-2 hover:scale-95 transition-all ease-out duration-200">
-          <div className="bg-neutral-300 rounded w-32 h-16"></div>
+          <div className="bg-neutral-200 rounded w-32 h-16"></div>
         </div>
       ),
     },
@@ -98,18 +99,13 @@ export function NoCodeService() {
 
   return (
     <li
-      className="relative col-span-1 row-span-1 flex flex-col bg-gray-100 rounded-2xl group"
-      style={{
-        cursor: `url("${customCursor}") 12 12, auto`,
-      }}
+      className="relative col-span-1 row-span-1 flex flex-col bg-neutral-100 rounded-2xl group"
+      // style={{
+      //   cursor: `url("${customCursor}") 12 12, auto`,
+      // }}
     >
-      <div
-        className="relative flex-1"
-        style={{
-          WebkitMaskImage: "linear-gradient(to bottom, black 60%, transparent)",
-        }}
-      >
-        <div className="absolute top-7 left-10 right-10 bg-white rounded-lg h-full group-hover:translate-y-0 translate-y-3 transition-transform duration-[400ms] ease-in-out">
+      <div className="relative flex-1 service-mask">
+        <div className="absolute top-7 left-7 right-7 bg-white service-shadow rounded-lg h-full group-hover:translate-y-0 translate-y-3 transition-transform duration-[400ms] ease-in-out">
           {items.map((item) => (
             <div
               key={item.id}
@@ -120,7 +116,7 @@ export function NoCodeService() {
               onDrop={(e) => handleDrop(e, item.id)}
               onDragEnd={handleDragEnd}
               className={`transition-all duration-200 hover:bg-blue-50/75 ${
-                draggedItem === item.id ? "opacity-50 scale-95" : ""
+                draggedItem === item.id ? "opacity-50 scale-95" : "cursor-grab"
               } ${
                 dragOverItem === item.id && draggedItem !== item.id
                   ? "bg-blue-50 border border-blue-200 border-dashed rounded"
@@ -135,7 +131,7 @@ export function NoCodeService() {
       <div className="flex-none p-4">
         <h3 className="font-medium">No-code</h3>
         <p className="text-neutral-500 leading-tight text-sm">
-          For landing pages and marketing sites
+          For marketing landing pages
         </p>
       </div>
     </li>
